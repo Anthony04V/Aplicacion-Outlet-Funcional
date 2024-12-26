@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .cart-item-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .cart-item-info h5 {
+            margin: 0 0 10px;
+        }
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .total-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 2px solid #ccc;
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Tu Carrito</h1>
+            <img src="https://boomoutlet.com.pa/cdn/shop/files/Logo.png?v=1687014432&width=374" class="image" width="100"   >
+  
+        <div class="cart-items mt-4">
+            {% for item in carrito %}
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h5>{{ item['nombreProducto'] }}</h5>
+                    <p class="mb-1">Cantidad: {{ item['cantidad'] }}</p>
+                    <p class="mb-1">Precio unitario: ₡{{ item['precio'] }}</p>
+                    <p class="mb-0"><strong>Subtotal: ₡{{ item['precio'] * item['cantidad'] }}</strong></p>
+                </div>
+                <div class="cart-item-actions">
+                    <form method="POST" action="{{ url_for('eliminar_del_carrito', id=item['idProducto']) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="total-container">
+            <h4>Total a pagar: <strong>₡{{ total }}</strong></h4>
+            <div>
+                <form method="POST" action="{{ url_for('confirmar_compra') }}" style="display: inline;">
+                    <button type="submit" class="btn btn-primary">Comprar ahora</button>
+                </form>
+                <a href="{{ url_for('tienda') }}" class="btn btn-secondary">Seguir comprando</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

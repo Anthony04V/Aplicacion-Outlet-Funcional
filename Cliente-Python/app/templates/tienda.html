@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-image {
+        
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .product-info h5 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .product-info p {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        .product-actions {
+            margin-top: 10px;
+        }
+        .category-filter {
+            margin-bottom: 20px;
+        }
+
+        
+
+        .logout-btn {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            background-color: rgba(255, 0, 0, 0.795)!important;
+            outline: none;
+            border: none;
+            border-radius: 50px;
+            transition: 0.8s;   
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+        .logout-btn:hover{
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
+        }   
+
+        .logout-btn:active{
+            transform: scale(1) !important;
+            background-color: rgba(255, 0, 0, 0.753)!important;
+        }
+
+        .btn{
+            background-color: black;
+            border: none;
+            margin:5px;
+            padding:8px;
+        }
+
+        .btn-carrito{
+            background-color: #ff1d11c2;
+        }
+        
+        .btn-carrito:hover,
+        .btn-agregar:hover{
+            background-color: #FF1E11!important ;
+        }
+        
+        .image{
+            position:flex;
+            padding-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <section>
+            <img src="https://boomoutlet.com.pa/cdn/shop/files/Logo.png?v=1687014432&width=374" class="image" width="100"   >
+
+            <h1 class="text-center">Nuestra Tienda</h1>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn float-end">Cerrar Sesión</a>
+        </section>
+     
+        <!-- Filtrar productos por categoría -->
+        <form method="GET" class="category-filter">
+            <label for="categoria">Filtrar por categoría:</label>
+            <select name="categoria" id="categoria" class="form-select" onchange="this.form.submit()">
+                <option value="">Todas</option>
+                {% for categoria in categorias %}
+                <option value="{{ categoria['idCategoria'] }}" {% if categoria['idCategoria'] == filtro_categoria|int %}selected{% endif %}>
+                    {{ categoria['nombreCategoria'] }}
+                </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-md-4 mb-4">
+                <div class="product-card">
+                    <div class="product-info">
+                        <h5>{{ producto['nombreProducto'] }}</h5>
+                        <p><strong>Precio: ₡{{ producto['precio'] }}</strong></p>
+                        <div class="product-actions">
+                            <form action="{{ url_for('agregar_al_carrito', id=producto['idProducto']) }}" method="POST">
+                                <input type="number" name="cantidad" class="form-control mb-2" placeholder="Cantidad" min="1" value="1">
+                                <button type="submit" class="btn btn-agregar btn-success btn-sm">Agregar al carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('ver_carrito') }}" class="btn btn-carrito btn-primary">Ver carrito</a>
+        </div>
+    </div>
+</body>
+</html>

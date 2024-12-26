@@ -1,0 +1,85 @@
+* {margin:0; padding:0;}
+
+
+
+body {
+    background-color: #ff1d1183;
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+    background-position: center; /* Centra la imagen en la pantalla */
+    background-attachment: fixed ;
+    overflow: hidden; 
+}
+
+
+
+
+.wrapper {
+	width:90%;
+	max-width:1000px;
+	margin:auto;
+	overflow:hidden;
+}
+
+
+
+
+/*Formulario*/
+
+
+
+section {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 0;
+}
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+	color: rgb(0, 0, 0);
+}
+h1 {
+    margin-bottom: 30px;
+}
+.form-control {
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+.btn-primary {
+    width: 200px;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #ff1d1183;
+    border: none;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+
+.btn-primary:hover
+{
+    background-color:#ff1d11b6;
+    transition: 1s;
+}
+
+.btn-primary:active{
+    background-color: #ff1d11d8 !important;
+    transform: scale(0.88);
+    border: none;
+    border-color: none;
+}
+
+.btn-primary:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+
+.alert {
+    margin-top: 20px;
+}

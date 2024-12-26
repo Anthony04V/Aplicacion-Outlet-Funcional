@@ -1,0 +1,6 @@
+flask
+pyodbc
+flask-sqlalchemy
+flask-wtf
+wtforms
+request

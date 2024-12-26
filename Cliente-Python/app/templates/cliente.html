@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Tienda</h1>
+        
+        <form method="GET">
+            <label for="categoria">Filtrar por categoría:</label>
+            <select name="categoria" id="categoria" onchange="this.form.submit()">
+                <option value="">Todas</option>
+                {% for categoria in categorias %}
+                <option value="{{ categoria['idCategoria'] }}" {% if categoria['idCategoria'] == filtro_categoria|int %}selected{% endif %}>
+                    {{ categoria['nombreCategoria'] }}
+                </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <div class="mt-4">
+            {% for producto in productos %}
+            <div class="product">
+                <h3>{{ producto['nombreProducto'] }}</h3>
+                <p>Precio: {{ producto['precio'] }}</p>
+                <form method="POST">
+                    <input type="hidden" name="id_producto" value="{{ producto['idProducto'] }}">
+                    <input type="number" name="cantidad" placeholder="Cantidad" min="1" value="1">
+                    <button type="submit">Agregar al carrito</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('carrito_view') }}">Ver carrito</a>
+    </div>
+</body>
+</html>
